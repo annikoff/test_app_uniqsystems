@@ -9,3 +9,4 @@ before_script:
   - psql -c 'create database test_app_uniqsystems;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
+secure: "GoVbFMLKru421EpCGiatTNZJ9lrY97Hu1vpJBOwZ5Tvu+rjpP69gr5y+jmhrhAOlfagKZuWnfK91i2Xg/c3W1reZal9VAMBqNarHBW209qv+t9Pq+E01S+O892F+QExEERGNIZYKibTqNC+C6ZfxBlTmM3fV1ydkq7xqWTGbcHknSFkWMUzye3yHSZ8mFS+mmqiUPDv6sVVi89KzzJUFp2q4D5DZtCNSd/tjFdXgNzGsnd1sgXUnlaSk84/QtkokPKidzq2vG66LmHrFOYkEiXpfxsrgli+zCkHVZjWbrS/naTlpbrEALZ7a8er1FW7Si9//s6FqoUw9RsjFHBs1ZtmrZ7G8Crqjjp7q4rM2HDFUUHiYb8ca5nT7hWCW+x2Hk/naXJdBDDyFPEo4efzBwYn5hx48tqJ2AQ/+XoEFEaf4rkgvpp5aoDKrf3ZgbboB1Q/yjjE7ToW1D4kEHJJGIM6BPaSVIC5iv4RQ9/ViD3th/dDa6RGexzjgR2pEROnog2myb8+z0Czx4B0ahli4wGjMoYR169qcZZ/VxVDZXygcFjExw9uqG09lQ0QIZPdHT+diHay6ITiY52ydjInTPM/s7BFB1zufCMaxKlBzfQANoRqq9WN9NqyQfHrXtK+EUPlNdMBeRod2t6x4nFGJ78709WX2tGCZXmtJiWr3Sxk="
