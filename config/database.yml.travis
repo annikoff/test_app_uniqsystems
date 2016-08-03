@@ -1,0 +1,7 @@
+test:
+  encoding: unicode
+  host: localhost
+  adapter: postgresql
+  database: test_app_uniqsystems
+  username: postgres
+pool: 5
