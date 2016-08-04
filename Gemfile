@@ -35,6 +35,7 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
 end
 
