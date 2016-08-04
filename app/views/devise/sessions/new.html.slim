@@ -1,7 +1,7 @@
 .row
   .col-sm-4.col-sm-offset-4.centered
     h2.text-center
-      'Sing in
+      'Sign in
     = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' } do |f|
       .form-group
         = f.label :email
@@ -11,5 +11,5 @@
         = f.password_field :password, class: 'form-control'
       .form-group
         label
-          = f.button 'Sing in', type: 'submit', class: 'btn btn-default'
+          = f.button 'Sign in', type: 'submit', class: 'btn btn-default'
       = render 'devise/shared/links'

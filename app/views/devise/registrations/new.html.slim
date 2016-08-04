@@ -3,6 +3,7 @@
     h2.text-center
       'Sign up
     = form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal' } do |f|
+      = devise_error_messages!
       .form-group
         = f.label :name, autofocus: true
         = f.text_field :name, class: 'form-control', required: true
@@ -22,5 +23,5 @@
                   autocomplete: 'off', required: true
       .form-group
         label
-          = f.button 'Sing up', type: 'submit', class: 'btn btn-default'
+          = f.button 'Sign up', type: 'submit', class: 'btn btn-default'
       = render 'devise/shared/links'
