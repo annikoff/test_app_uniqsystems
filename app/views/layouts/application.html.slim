@@ -24,5 +24,7 @@ html
               li = link_to 'Sing in', new_user_session_path, target: '_self'
               li = link_to 'Sing up', new_user_registration_path, target: '_self'
     .container
-        = yield
+      - if flash[:alert].present?
+        p.alert.alert-danger.text-center = flash[:alert]
+      = yield
     = javascript_include_tag 'application'
