@@ -5,11 +5,12 @@ services:
 - postgresql
 addons:
   postgresql: '9.4'
+before_install:
+- openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in secrets.yml.enc -out secrets.yml -d
 before_script:
 - psql -c 'create database test_app_uniqsystems;' -U postgres
 - cp config/database.yml.travis config/database.yml
 - bundle exec rake db:migrate RAILS_ENV=test
-- openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in secrets.yml.enc -out secrets.yml -d
 env:
   global:
     secure: zXn/ImNq/kEpQ3vzs/1s2xvI02xFazcID6FHSc1YibBGnP7hRyTnxrNfOXnhh6K6Qc7jGBG0wafuXy2zIDej7ZjNGVSwtTLrJ+sfwgK5WUlsElXgyBUKoHt5weiwVVWpLbEkhBFlp0kHTq8DUpQ06gE1d/WDKPC/Vb7BS0owfgZKW/yeaJ419iJ0ufQqHK2aWmA6jSPB0W8ne+l4zVBqSqYVOmc/csGyRAmvjfpnwpPdzH5nyGFlgbXL4khI6THbCMKRdwsnZS/VQbYx/ovu157KXta//ifwWXjfovwtaJF/XfB+5ttldjuheT9HnjmSDXA/4yd9bN8e252XsRQo/2LuG+/MBdhtuPn6XgeR996FSsFd6u7kumL3c1b52TpkW58YHY32sbuFlzEup/OfzvMfg/g8xofiatrM3C7CgkcKTu4FDwqBpu6RhAVXRXJaI27nJ3ujBHW0OqjHnsDZ/SFR0fXNa1DnfrGWoWr6Zruy9tpRadQvcAUrctL9vJWujF91jOv4V7zTJYWNWajI3qFXi7kH0/bX6345I3TZzXDskJE/6jOx8u+B5Vp5kP2jWiCGD5riy5ND1BljTqd9Ixf27xEF+2+RVhVlNL2imoet/YVAr534cbg2NDbrf7zLqMLlQ7TnutnEoy7QdDlb3YcEYpifhk88In4TWOqfDL8=
