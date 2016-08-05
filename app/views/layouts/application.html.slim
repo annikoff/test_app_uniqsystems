@@ -28,5 +28,7 @@ html
         p.alert.alert-danger.text-center = flash[:alert]
       - if flash[:notice].present?
           p.alert.alert-info.text-center = flash[:notice]
-      = yield
+      .col-md-9
+        = yield
+      .col-md-3
     = javascript_include_tag 'application'
