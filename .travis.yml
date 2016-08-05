@@ -6,7 +6,7 @@ services:
 addons:
   postgresql: '9.4'
 before_install:
-- openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in secrets.yml.enc -out secrets.yml -d
+- openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in config/secrets.yml.enc -out config/secrets.yml -d
 before_script:
 - psql -c 'create database test_app_uniqsystems;' -U postgres
 - cp config/database.yml.travis config/database.yml
