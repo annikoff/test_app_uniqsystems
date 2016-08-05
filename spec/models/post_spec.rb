@@ -9,8 +9,10 @@ RSpec.describe Post, :type => :model do
   end
 
   context 'when first user created' do
-    let(:user) { create(:user) }
+    let!(:user1) { create(:user) }
+    let!(:user2) { create(:user) }
 
-    it { expect(user.is_admin?).to eq(true) }
+    it { expect(user1.is_admin?).to eq(true) }
+    it { expect(user2.is_admin?).to eq(false) }
   end
 end
