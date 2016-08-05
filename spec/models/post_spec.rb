@@ -7,4 +7,10 @@ RSpec.describe Post, :type => :model do
     it { is_expected.to have_many(:tags) }
     it { is_expected.to have_many(:taggings) }
   end
+
+  context 'when first user created' do
+    let(:user) { create(:user) }
+
+    it { expect(user.is_admin?).to eq(true) }
+  end
 end
