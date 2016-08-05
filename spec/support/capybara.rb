@@ -3,7 +3,7 @@ require 'database_cleaner'
 
 include Warden::Test::Helpers
 
-Capybara.default_driver = :selenium
+Capybara.default_driver = :rack_test
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false

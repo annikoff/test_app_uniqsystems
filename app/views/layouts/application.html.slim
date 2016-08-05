@@ -21,10 +21,12 @@ html
                 p.navbar-text = current_user.name
               li = link_to 'Sign out', destroy_user_session_path, target: '_self'
             - else
-              li = link_to 'Sing in', new_user_session_path, target: '_self'
-              li = link_to 'Sing up', new_user_registration_path, target: '_self'
+              li = link_to 'Sign in', new_user_session_path, target: '_self'
+              li = link_to 'Sign up', new_user_registration_path, target: '_self'
     .container
       - if flash[:alert].present?
         p.alert.alert-danger.text-center = flash[:alert]
+      - if flash[:notice].present?
+          p.alert.alert-info.text-center = flash[:notice]
       = yield
     = javascript_include_tag 'application'
