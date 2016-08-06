@@ -4,6 +4,7 @@ module Taggable
   included do
     has_many :taggings, :as => :taggable
     has_many :tags, :through => :taggings
+    after_save :destroy_not_associated_tags
   end
 
   def tag_name=(tag_name)
@@ -21,5 +22,11 @@ module Taggable
 
   def tag_names
     tags.collect(&:name)
+  end
+
+  private
+
+  def destroy_not_associated_tags
+    Tag.destroy_not_associated_tags
   end
 end
