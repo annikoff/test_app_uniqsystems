@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
-  before_action :find_categories
   before_action :find_post, :only => [:edit, :update, :show, :destroy]
+  before_action :find_categories
+  before_action :find_tags, :only => [:index, :show, :edit, :new]
 
   def index
     @posts = Post.includes(:category, :tags).all
@@ -50,7 +51,7 @@ class PostsController < ApplicationController
   private
 
   def resource_params
-    params.require(:post).permit(:title, :body, :category_id)
+    params.require(:post).permit(:title, :body, :category_id, tag_ids: [], tag_names: [])
   end
 
   def find_post
@@ -60,5 +61,9 @@ class PostsController < ApplicationController
 
   def find_categories
     @categories = Category.all
+  end
+
+  def find_tags
+    @tags = Tag.all
   end
 end

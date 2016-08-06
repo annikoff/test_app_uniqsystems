@@ -33,10 +33,12 @@ RSpec.feature 'Posts', :type => :feature do
     end
   end
 
-  describe 'Signed in user' do
+  describe 'Signed in user', :js => true do
     let!(:user) { create(:user) }
     let!(:category) { create(:category) }
     let!(:post) { create(:post, category: category) }
+    let!(:tag) { create(:tag) }
+    let!(:tagging) { create(:tagging, tag: tag, taggable: post) }
 
     before do
       login_as(user)
@@ -56,6 +58,10 @@ RSpec.feature 'Posts', :type => :feature do
       select category.name, from: 'post_category_id', :match => :first
       click_button 'Submit'
 
+      expect(page).to have_css('.title', text: post.title)
+      expect(page).to have_css('.body', text: post.body)
+      expect(page).to have_css('div', text: category.name)
+      expect(page).to have_css('div', text: tag.name)
       expect(page).to have_css('.alert-info', text: 'Post successfully created')
     end
 
@@ -66,9 +72,34 @@ RSpec.feature 'Posts', :type => :feature do
       fill_in 'Title', :with => 'Updated title'
       fill_in 'Body', :with => 'Updated body'
       select category.name, from: 'post_category_id', :match => :first
+      check "post_tag_ids_#{tag.id}"
       click_button 'Submit'
 
+      expect(page).to have_css('.title', text: 'Updated title')
+      expect(page).to have_css('.body', text: 'Updated body')
+      expect(page).to have_css('div', text: category.name)
+      expect(page).to have_css('div', text: tag.name)
       expect(page).to have_css('.alert-info', text: 'Post successfully updated')
+    end
+
+    it 'create new tag' do
+      visit edit_post_path(post)
+      tag_name = 'Tag name'
+
+      fill_in 'post_tag_name', :with => tag_name
+      find('a', :text => 'Add tag').click
+      click_button 'Submit'
+
+      expect(page).to have_css('div', text: tag_name)
+    end
+
+    it 'uncheck tag' do
+      visit edit_post_path(post)
+
+      uncheck "post_tag_ids_#{tag.id}"
+      click_button 'Submit'
+
+      expect(page).not_to have_css('div', text: tag.name)
     end
 
     it 'delete post' do

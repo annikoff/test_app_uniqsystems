@@ -9,7 +9,52 @@
     = f.label :category
     = f.select :category_id,
             @categories.collect { |c| [ "#{'-' * c.level} #{c.name}", c.id ] },
-            include_blank: true, class: 'form-control'
+            { include_blank: true }, { class: 'form-control' }
   .form-group
-    label
-      = f.button 'Submit', type: 'submit', class: 'btn btn-default'
+    = f.label :tags
+    = tag :input, type: 'hidden', name: 'post[tag_ids][]'
+    ul#tags.list-group
+      - @tags.each do |tag|
+        li.list-group-item
+          = check_box_tag 'post[tag_ids][]', tag.id, tag.id.in?(post.tag_ids), { id: "post_tag_ids_#{tag.id}" }
+          '&nbsp;
+          = tag.name
+      li.list-group-item
+        .input-group
+          = tag :input, type: 'text', class: 'form-control', id: 'post_tag_name'
+          .input-group-btn
+            a#add_tag_name.btn.btn-success Add tag
+  .form-group
+    = f.button 'Submit', type: 'submit', class: 'btn btn-default'
+
+javascript:
+  function addTagName() {
+    var value = $('#post_tag_name').val().trim();
+    if (value == '') {
+      return;
+    }
+    var listGroupItem = $("<li>", {"class": "list-group-item"});
+    var checkBox = $("<input>", {
+      "type": "checkbox",
+      "name": "post[tag_names][]",
+      "value": value,
+      "checked": true
+    });
+    listGroupItem.append(checkBox);
+    listGroupItem.append("&nbsp;" + value);
+    listGroupItem.insertBefore("li.list-group-item:last-child");
+  }
+
+  $(document).ready(function () {
+    $("#post_tag_name").keypress(function (event) {
+      if (event.which == 13) {
+        addTagName();
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    $("#add_tag_name").click(function () {
+      addTagName();
+    });
+  });

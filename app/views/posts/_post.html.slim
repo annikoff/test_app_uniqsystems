@@ -17,4 +17,10 @@
         = post.category.name
         strong , created:
         = render_user_name_and_time post
+      .list-group-item
+        strong Tags:
+        - post.tags.each do |tag|
+          '
+          span.label.label-default
+            = tag.name
 
