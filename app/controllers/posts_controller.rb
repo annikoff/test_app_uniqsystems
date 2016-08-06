@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :find_post, :only => [:edit, :update, :show, :destroy]
   before_action :find_categories
   before_action :find_tags, :only => [:index, :show, :edit, :new]
+  before_action :check_access, :except => [:index, :show]
 
   def index
     @posts = Post.includes(:category, :tags).all
@@ -60,10 +61,14 @@ class PostsController < ApplicationController
   end
 
   def find_categories
-    @categories = Category.all
+    @categories = Category.all.sort
   end
 
   def find_tags
     @tags = Tag.all
+  end
+
+  def check_access
+    render 'error_403', status: 403 unless current_user.try(:is_admin?)
   end
 end

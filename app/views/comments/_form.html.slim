@@ -1,0 +1,7 @@
+h4 Add comment
+= form_tag post_comments_path(post) do
+  .form-group
+    = label_tag :body
+    = text_area_tag 'comment[body]', nil, class: 'form-control', required: true
+  .form-group
+    = button_tag 'Submit', type: 'submit', class: 'btn btn-default'

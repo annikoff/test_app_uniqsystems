@@ -47,7 +47,7 @@ RSpec.feature 'Posts', :type => :feature do
     it 'can see create link if user is admin' do
       visit root_path
       expect(user.is_admin?).to eq(true)
-      expect(page).to have_link('a', text: 'Create post', href: new_post_path)
+      expect(page).to have_link('Create post', href: new_post_path)
     end
 
     it 'create post' do

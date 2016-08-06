@@ -1,0 +1,32 @@
+.panel.panel-default.comments
+  .panel-heading.title
+    h4 = link_to 'Comments', nil, name: 'comments'
+  ul.list-group
+    - post.comments.each do |comment|
+      - next if !comment.is_accepted? && (current_user.blank? || !current_user.is_admin?)
+      .list-group-item.comment
+        .row
+          .col-md-8
+            div.commented_by
+              strong Commented
+              '
+              = render_user_name_and_time comment
+              '
+              strong by
+              '
+              = comment.user.name
+            div.body
+              = comment.body
+          .col-md-4.text-right
+            - if current_user.present? && current_user.is_admin?
+              .btn-group.btn-group-sm
+                - if comment.user != current_user
+                  - if !comment.is_accepted?
+                    = link_to 'Accept', accept_post_comment_path(post, comment), :method => :post, class: 'btn btn-success'
+                  - if comment.is_accepted?
+                    = link_to 'Decline', decline_post_comment_path(post, comment), :method => :post, class: 'btn btn-warning'
+                = link_to 'Delete', post_comment_path(post, comment), :method => :delete,
+                        :data => {confirm: 'Are you sure?'}, class: 'btn btm btn-danger'
+
+
+= render partial: 'comments/form', locals: { post: post }

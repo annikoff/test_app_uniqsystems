@@ -3,6 +3,6 @@ class Tag < ApplicationRecord
   has_many :posts, through: :taggings, source: :taggable, source_type: Post
 
   def self.destroy_not_associated_tags
-    self.includes(:posts).destroy_all(posts: { id: nil })
+    Tag.includes(:posts).where(posts: { id: nil }).destroy_all
   end
 end

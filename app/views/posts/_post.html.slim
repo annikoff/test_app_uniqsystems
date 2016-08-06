@@ -9,18 +9,22 @@
             .btn-group
               = link_to 'Edit', edit_post_path(post), class: 'btn btn-default'
               = link_to 'Delete', post, :method => :delete,
-                      :data => { confirm: 'Are you sure?' }, class: 'btn btn-default btn-danger'
+                      :data => { confirm: 'Are you sure?' }, class: 'btn btn-danger'
     .panel-body.body = post.body
     ul.list-group
       .list-group-item
         strong Category:&nbsp;
         = post.category.name
-        strong , created:
+        ',
+        strong posted:
         = render_user_name_and_time post
+        ',
+        strong comments:
+        a.comments_count href = "#{post_path(post)}#comments"
+          = " #{post.comments.accepted.size}"
       .list-group-item
         strong Tags:
         - post.tags.each do |tag|
           '
           span.label.label-default
             = tag.name
-
