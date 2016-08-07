@@ -3,14 +3,14 @@
     .panel-heading.title
       .row
         .col-md-9
-          h4 = link_to post.title, post_path(post)
+          h4 = link_to highlight(post.title, @search), post_path(post)
         .col-md-3.text-right
           - if current_user.present? && current_user.is_admin?
             .btn-group
               = link_to 'Edit', edit_post_path(post), class: 'btn btn-default'
               = link_to 'Delete', post, :method => :delete,
                       :data => { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-    .panel-body.body = post.body
+    .panel-body.body = highlight post.body, @search
     ul.list-group
       .list-group-item
         strong Category:&nbsp;

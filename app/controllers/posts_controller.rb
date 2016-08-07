@@ -1,7 +1,5 @@
 class PostsController < ApplicationController
   before_action :find_post, :only => [:edit, :update, :show, :destroy]
-  before_action :find_categories
-  before_action :find_tags
   before_action :find_category
   before_action :find_tag
   before_action :find_order
@@ -9,12 +7,15 @@ class PostsController < ApplicationController
   include PostsHelper
 
   def index
+    @search = url_params[:search]
     scope = Post.joins(:category, :tags)
     scope = case
               when @category.present?
                 scope.where(categories: { id: @category.id })
               when @tag.present?
                 scope.where(taggings: { tag_id: @tag.id })
+              when @search
+                scope.where("posts.title LIKE '%#{@search}%' OR posts.body LIKE '%#{@search}%'")
               else
                 scope
             end
@@ -70,23 +71,15 @@ class PostsController < ApplicationController
 
   def find_post
     @post = Post.find_by_id params[:id]
-    render 'error_404', status: 404 if @post.blank?
-  end
-
-  def find_categories
-    @categories = Category.all.sort
-  end
-
-  def find_category
-    @category = Category.find_by_name params[:category] if params[:category].present?
+    render 'application/error_404', status: 404 if @post.blank?
   end
 
   def find_tag
     @tag = Tag.find_by_name params[:tag] if params[:tag].present?
   end
 
-  def find_tags
-    @tags = Tag.all
+  def find_category
+    @category = Category.find_by_name params[:category] if params[:category].present?
   end
 
   def find_order
@@ -94,6 +87,6 @@ class PostsController < ApplicationController
   end
 
   def check_access
-    render 'error_403', status: 403 unless current_user.try(:is_admin?)
+    render 'application/error_403', status: 403 unless current_user.try(:is_admin?)
   end
 end

@@ -4,7 +4,7 @@ module PostsHelper
   end
 
   def url_params
-    params.permit(:order, :category, :tag)
+    params.permit(:order, :category, :tag, :search)
   end
 
   def merge_order_params(order)
