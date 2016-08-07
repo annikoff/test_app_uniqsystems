@@ -1,0 +1,41 @@
+html
+  head
+    title
+      'TestAppUniqsystems
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
+  body
+    nav.navbar.navbar-inverse
+      .container
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li
+              a href="/" Main
+
+          ul.nav.navbar-nav.navbar-right
+            - if current_user.present?
+              li
+                p.navbar-text = current_user.name
+              li = link_to 'Sign out', destroy_user_session_path, target: '_self'
+            - else
+              li = link_to 'Sign in', new_user_session_path, target: '_self'
+              li = link_to 'Sign up', new_user_registration_path, target: '_self'
+    .container
+      - flash.each do |key, value|
+        div class = flash_class(key)
+          - if value.is_a?(Array)
+            == value.join('<br />')
+          - else
+            = value
+      .col-md-9
+        form action = "/" method = "get"
+          .input-group
+            input.form-control type = "text" name = "search" placeholder = "Search for..." value = @search
+            .input-group-btn
+              button.btn.btn-default type = "submit" Go!
+        = yield
+      .col-md-3
+        = render partial: 'application/side_bar'

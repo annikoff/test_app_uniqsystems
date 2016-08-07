@@ -32,7 +32,13 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
+  gem 'headless'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -45,3 +51,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
+gem 'awesome_nested_set'
+gem 'bootstrap-sass'
+gem 'slim-rails'
+gem 'recaptcha', require: 'recaptcha/rails'
