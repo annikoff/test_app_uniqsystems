@@ -1,11 +1,24 @@
 class PostsController < ApplicationController
   before_action :find_post, :only => [:edit, :update, :show, :destroy]
   before_action :find_categories
-  before_action :find_tags, :only => [:index, :show, :edit, :new]
+  before_action :find_tags
+  before_action :find_category
+  before_action :find_tag
+  before_action :find_order
   before_action :check_access, :except => [:index, :show]
+  include PostsHelper
 
   def index
-    @posts = Post.includes(:category, :tags).all
+    scope = Post.joins(:category, :tags)
+    scope = case
+              when @category.present?
+                scope.where(categories: { id: @category.id })
+              when @tag.present?
+                scope.where(taggings: { tag_id: @tag.id })
+              else
+                scope
+            end
+    @posts = scope.order("posts.created_at #{@order}").distinct
   end
 
   def show
@@ -64,8 +77,20 @@ class PostsController < ApplicationController
     @categories = Category.all.sort
   end
 
+  def find_category
+    @category = Category.find_by_name params[:category] if params[:category].present?
+  end
+
+  def find_tag
+    @tag = Tag.find_by_name params[:tag] if params[:tag].present?
+  end
+
   def find_tags
     @tags = Tag.all
+  end
+
+  def find_order
+    @order = url_params['order'].in?(['asc', 'desc']) ? params['order'] : 'desc'
   end
 
   def check_access

@@ -27,7 +27,12 @@ html
       - if flash[:alert].present?
         p.alert.alert-danger.text-center = flash[:alert]
       - if flash[:notice].present?
-          p.alert.alert-info.text-center = flash[:notice]
+        p.alert.alert-info.text-center = flash[:notice]
       .col-md-9
+        .input-group
+          input.form-control type="text" placeholder="Search for..."
+          .input-group-btn
+            button.btn.btn-default type="button" Go!
         = yield
       .col-md-3
+        = render partial: 'application/side_bar'
