@@ -9,22 +9,6 @@ RSpec.feature 'Posts', :type => :feature do
       expect(page).to have_css('h1', text: 'Posts')
     end
 
-    context 'when posts exists' do
-      let!(:category) { create(:category) }
-      let!(:post) { create(:post, category: category) }
-
-      it 'have posts' do
-        visit root_path
-        within('.posts') do
-          expect(page).to have_css('.post', count: 1)
-          within page.find('.post', text: post.title) do
-            expect(page).to have_css('.title', text: post.title)
-            expect(page).to have_css('.body', text: post.body)
-          end
-        end
-      end
-    end
-
     context 'when there is no posts' do
       it 'have text' do
         visit root_path

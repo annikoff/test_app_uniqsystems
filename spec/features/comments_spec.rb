@@ -6,11 +6,13 @@ RSpec.feature 'Comments', :type => :feature do
     let!(:category) { create(:category) }
     let!(:post) { create(:post, category: category) }
 
-    it 'have comments count' do
-      visit root_path
+    context 'when there is no comments' do
+      it 'have comments count' do
+        visit post_path(post)
 
-      expect(page).to have_css('strong', text: 'comments:')
-      expect(page).to have_css('a.comments_count', text: '0')
+        expect(page).to have_css('strong', text: 'comments:')
+        expect(page).to have_css('a.comments_count', text: '0')
+      end
     end
 
     context 'when comment exists' do
