@@ -15,6 +15,6 @@ class User < ApplicationRecord
   private
 
   def welcome_message
-    UserMailer.welcome_message(self).deliver
+    UserMailer.welcome_message(self).deliver if valid?
   end
 end
