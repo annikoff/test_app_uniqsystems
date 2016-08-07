@@ -1,7 +1,7 @@
 h1 Posts
 .posts
   - if @posts.size.zero?
-    h3 There is no posts yet
+    h3 There are no posts yet
   .btn-group
     - if current_user.present? && current_user.is_admin?
       a.btn.btn-success type = "button" href = new_post_path

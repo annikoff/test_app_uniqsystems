@@ -2,6 +2,9 @@
   .panel-heading.title
     h4 = link_to 'Comments', nil, name: 'comments'
   ul.list-group
+    - if post.comments.accepted.size.zero?
+      .list-group-item.comment
+        'There are no comments yet
     - post.comments.each do |comment|
       - next if !comment.is_accepted? && (current_user.blank? || !current_user.is_admin?)
       .list-group-item.comment
@@ -14,9 +17,7 @@
               '
               strong by
               '
-              = comment.user.name
-            div.body
-              = comment.body
+              = comment.user.try(:name) || 'Anonymous'
           .col-md-4.text-right
             - if current_user.present? && current_user.is_admin?
               .btn-group.btn-group-sm
@@ -25,8 +26,9 @@
                     = link_to 'Accept', accept_post_comment_path(post, comment), :method => :post, class: 'btn btn-success'
                   - if comment.is_accepted?
                     = link_to 'Decline', decline_post_comment_path(post, comment), :method => :post, class: 'btn btn-warning'
-                = link_to 'Delete', post_comment_path(post, comment), :method => :delete,
-                        :data => {confirm: 'Are you sure?'}, class: 'btn btm btn-danger'
-
+                  = link_to 'Delete', post_comment_path(post, comment), :method => :delete,
+                          :data => {confirm: 'Are you sure?'}, class: 'btn btm btn-danger'
+        div.body
+          = simple_format comment.body
 
 = render partial: 'comments/form', locals: { post: post }

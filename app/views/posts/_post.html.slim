@@ -10,7 +10,7 @@
               = link_to 'Edit', edit_post_path(post), class: 'btn btn-default'
               = link_to 'Delete', post, :method => :delete,
                       :data => { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-    .panel-body.body = highlight post.body, @search
+    .panel-body.body = highlight(simple_format(post.body), @search)
     ul.list-group
       .list-group-item
         strong Category:&nbsp;

@@ -1,13 +1,15 @@
 class CommentsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:create]
   before_action :find_post, :only => [:create, :destroy]
   before_action :find_comment, :only => [:accept, :decline, :destroy]
   before_action :check_access, :only => [:accept, :decline, :destroy]
+  self.view_paths = "app/views"
 
   def create
     @comment = Comment.new(resource_params)
     @comment.post = @post
     @comment.user = current_user
-    if @comment.save
+    if (current_user.present? || verify_recaptcha(model: @comment)) && @comment.save
       flash[:notice] = 'Comment successfully created'
       if !current_user.try(:is_admin?)
         flash[:notice] += '. It would be shown after moderation'

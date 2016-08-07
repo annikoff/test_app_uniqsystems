@@ -25,9 +25,11 @@ html
               li = link_to 'Sign up', new_user_registration_path, target: '_self'
     .container
       - if flash[:alert].present?
-        p.alert.alert-danger.text-center = flash[:alert]
+        - alerts = flash[:alert].is_a?(Array) ? flash[:alert] : [flash[:alert]]
+        p.alert.alert-danger.text-center == alerts.join('<br />')
       - if flash[:notice].present?
-        p.alert.alert-info.text-center = flash[:notice]
+        - notices = flash[:notice].is_a?(Array) ? flash[:notice] : [flash[:notice]]
+        p.alert.alert-info.text-center == notices.join('<br />')
       .col-md-9
         form action = "/" method = "get"
           .input-group

@@ -9,10 +9,10 @@ RSpec.feature 'Posts', :type => :feature do
       expect(page).to have_css('h1', text: 'Posts')
     end
 
-    context 'when there is no posts' do
+    context 'when there are no posts' do
       it 'have text' do
         visit root_path
-        expect(page).to have_css('h3', text: 'There is no posts yet')
+        expect(page).to have_css('h3', text: 'There are no posts yet')
       end
     end
   end

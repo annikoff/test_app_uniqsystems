@@ -6,7 +6,7 @@ RSpec.feature 'Comments', :type => :feature do
     let!(:category) { create(:category) }
     let!(:post) { create(:post, category: category) }
 
-    context 'when there is no comments' do
+    context 'when there are no comments' do
       it 'have comments count' do
         visit post_path(post)
 
