@@ -46,7 +46,7 @@ RSpec.feature 'Posts', :type => :feature do
       expect(page).to have_css('.body', text: post.body)
       expect(page).to have_css('div', text: category.name)
       expect(page).to have_css('div', text: tag.name)
-      expect(page).to have_css('.alert-info', text: 'Post successfully created')
+      expect(page).to have_css('.alert', text: 'Post successfully created')
     end
 
     it 'edit post' do
@@ -63,7 +63,7 @@ RSpec.feature 'Posts', :type => :feature do
       expect(page).to have_css('.body', text: 'Updated body')
       expect(page).to have_css('div', text: category.name)
       expect(page).to have_css('div', text: tag.name)
-      expect(page).to have_css('.alert-info', text: 'Post successfully updated')
+      expect(page).to have_css('.alert', text: 'Post successfully updated')
     end
 
     it 'create new tag' do
@@ -90,7 +90,7 @@ RSpec.feature 'Posts', :type => :feature do
       visit post_path(post)
       click_link 'Delete'
 
-      expect(page).to have_css('.alert-info', text: 'Post successfully destroyed')
+      expect(page).to have_css('.alert', text: 'Post successfully destroyed')
     end
   end
 end
