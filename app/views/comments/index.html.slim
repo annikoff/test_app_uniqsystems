@@ -26,8 +26,8 @@
                     = link_to 'Accept', accept_post_comment_path(post, comment), :method => :post, class: 'btn btn-success'
                   - if comment.is_accepted?
                     = link_to 'Decline', decline_post_comment_path(post, comment), :method => :post, class: 'btn btn-warning'
-                  = link_to 'Delete', post_comment_path(post, comment), :method => :delete,
-                          :data => {confirm: 'Are you sure?'}, class: 'btn btm btn-danger'
+                = link_to 'Delete', post_comment_path(post, comment), :method => :delete,
+                        :data => {confirm: 'Are you sure?'}, class: 'btn btm btn-danger'
         div.body
           = simple_format comment.body
 
