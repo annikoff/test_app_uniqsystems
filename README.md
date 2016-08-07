@@ -4,7 +4,7 @@
 ## Installation:
 - Execute `git clone git@github.com:annikoff/test_app_uniqsystems.git` 
 - Create `config/database.yml` with settings
-- Set environment variables `SECRET_KEY_BASE`, `DEVISE_KEY_BASE`, `RECAPTCHA_PUBLIC_KEY`, `RECAPTCHA_PRIVATE_KEY`
+- Set environment variables `SECRET_KEY_BASE`, `DEVISE_KEY_BASE`, `RECAPTCHA_PUBLIC_KEY`, `RECAPTCHA_PRIVATE_KEY`, `SMTP_DOMAIN`, `SMTP_USER`, `SMTP_PASSWORD`
 
 ## ToDo:
 - Add pagination
