@@ -37,6 +37,7 @@ group :development, :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'headless'
 end
 
 group :development do
