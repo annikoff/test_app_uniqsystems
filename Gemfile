@@ -35,8 +35,10 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'headless'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -52,3 +54,4 @@ gem 'devise'
 gem 'awesome_nested_set'
 gem 'bootstrap-sass'
 gem 'slim-rails'
+gem 'recaptcha', require: 'recaptcha/rails'

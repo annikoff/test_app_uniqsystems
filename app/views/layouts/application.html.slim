@@ -5,7 +5,7 @@ html
     = csrf_meta_tags
 
     = stylesheet_link_tag    'application', media: 'all'
-
+    = javascript_include_tag 'application'
 
   body
     nav.navbar.navbar-inverse
@@ -24,9 +24,18 @@ html
               li = link_to 'Sign in', new_user_session_path, target: '_self'
               li = link_to 'Sign up', new_user_registration_path, target: '_self'
     .container
-      - if flash[:alert].present?
-        p.alert.alert-danger.text-center = flash[:alert]
-      - if flash[:notice].present?
-          p.alert.alert-info.text-center = flash[:notice]
-      = yield
-    = javascript_include_tag 'application'
+      - flash.each do |key, value|
+        div class = flash_class(key)
+          - if value.is_a?(Array)
+            == value.join('<br />')
+          - else
+            = value
+      .col-md-9
+        form action = "/" method = "get"
+          .input-group
+            input.form-control type = "text" name = "search" placeholder = "Search for..." value = @search
+            .input-group-btn
+              button.btn.btn-default type = "submit" Go!
+        = yield
+      .col-md-3
+        = render partial: 'application/side_bar'
