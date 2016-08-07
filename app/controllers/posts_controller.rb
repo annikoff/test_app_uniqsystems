@@ -35,7 +35,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(resource_params)
     if @post.save
-      flash[:notice] = 'Post successfully created'
+      flash[:success] = 'Post successfully created'
       redirect_to root_path
     else
       flash[:alert] = @post.errors.full_messages
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(resource_params)
-      flash[:notice] = 'Post successfully updated'
+      flash[:success] = 'Post successfully updated'
       redirect_to post_path(@post)
     else
       flash[:alert] = @post.errors.full_messages
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      flash[:notice] = 'Post successfully destroyed'
+      flash[:success] = 'Post successfully destroyed'
       redirect_to root_path
     else
       flash[:alert] = @post.errors.full_messages

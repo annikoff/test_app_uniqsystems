@@ -12,5 +12,14 @@ module ApplicationHelper
   def render_tags(tags)
     tags.map { |t| " <span class='label label-default'><a href='/?tag=#{t.name}'>#{t.name}</a></span>" }.join
   end
+
+  def flash_class(level)
+    case level
+      when 'notice' then 'alert alert-info'
+      when 'success' then 'alert alert-success'
+      when 'error' then 'alert alert-danger'
+      when 'alert' then 'alert alert-danger'
+    end
+  end
 end
 

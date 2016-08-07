@@ -10,9 +10,9 @@ class CommentsController < ApplicationController
     @comment.post = @post
     @comment.user = current_user
     if (current_user.present? || verify_recaptcha(model: @comment)) && @comment.save
-      flash[:notice] = 'Comment successfully created'
+      flash[:success] = 'Comment successfully created'
       if !current_user.try(:is_admin?)
-        flash[:notice] += '. It would be shown after moderation'
+        flash[:success] += '. It would be shown after moderation'
       end
       redirect_to post_path(@post)
     else
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
 
   def destroy
     if @comment.destroy
-      flash[:notice] = 'Comment successfully destroyed'
+      flash[:success] = 'Comment successfully destroyed'
       redirect_to post_path(@comment.post)
     else
       flash[:alert] = @comment.errors.full_messages
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
 
   def accept
     if @comment.update(is_accepted: true)
-      flash[:notice] = 'Comment successfully accepted'
+      flash[:success] = 'Comment successfully accepted'
       redirect_to post_path(@comment.post)
     else
       flash[:alert] = @comment.errors.full_messages
@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
 
   def decline
     if @comment.update(is_accepted: false)
-      flash[:notice] = 'Comment successfully declined'
+      flash[:success] = 'Comment successfully declined'
       redirect_to post_path(@comment.post)
     else
       flash[:alert] = @comment.errors.full_messages

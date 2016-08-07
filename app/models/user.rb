@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :validatable
   validates_presence_of :name
+  validates_uniqueness_of :name, :email
   has_many :comments
   before_create :set_is_admin
 

@@ -24,12 +24,12 @@ html
               li = link_to 'Sign in', new_user_session_path, target: '_self'
               li = link_to 'Sign up', new_user_registration_path, target: '_self'
     .container
-      - if flash[:alert].present?
-        - alerts = flash[:alert].is_a?(Array) ? flash[:alert] : [flash[:alert]]
-        p.alert.alert-danger.text-center == alerts.join('<br />')
-      - if flash[:notice].present?
-        - notices = flash[:notice].is_a?(Array) ? flash[:notice] : [flash[:notice]]
-        p.alert.alert-info.text-center == notices.join('<br />')
+      - flash.each do |key, value|
+        div class = flash_class(key)
+          - if value.is_a?(Array)
+            == value.join('<br />')
+          - else
+            = value
       .col-md-9
         form action = "/" method = "get"
           .input-group

@@ -2,7 +2,7 @@
   .panel-heading.title
     h4 = link_to 'Comments', nil, name: 'comments'
   ul.list-group
-    - if post.comments.accepted.size.zero?
+    - if (post.comments.accepted.size.zero? && !current_user.try(:is_admin?)) || post.comments.size.zero?
       .list-group-item.comment
         'There are no comments yet
     - post.comments.each do |comment|
